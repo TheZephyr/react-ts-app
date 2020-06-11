@@ -1,7 +1,12 @@
 import React from "react";
 
-function Image() {
-    return <img src="img/img1.jpg" alt="Widoczek1"></img>;
+interface ImageProps {
+    src: string
+    alt: string
+}
+
+function Image(props: ImageProps) {
+    return <img src={props.src} alt={props.alt}></img>;
 }
 
 export default Image;

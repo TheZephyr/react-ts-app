@@ -6,7 +6,10 @@ function App() {
   return (
     <div className="App">
       <div className="App-header">
-        <Image />       
+        <Image
+          src="img/img1.jpg"
+          alt="Widoczek1"
+        />       
       </div>
     </div>
   );
