@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "./Image";
 import List from "./List";
 import ImageContext from "./ImageContext";
@@ -14,9 +14,20 @@ const imageArray = [
 function ImageList() {
   const [image, setImage] = useState(imageArray[0]);
 
+  useEffect(() => {
+    const paragraph: HTMLElement | null = document.getElementById(
+      "ImageHeader"
+    );
+    if (paragraph) {
+      let randomHue = Math.random() * 360;
+      let randomColor = `hsl(${randomHue}, 100%, 50%)`;
+      paragraph.style.color = randomColor;
+    }
+  });
+
   return (
     <div>
-      <span>Choose an image:</span>
+      <p id="ImageHeader">Choose an image:</p>
       <ImageContext.Provider value={{ image, setImage }}>
         <List images={imageArray} />
         <Image src={image} alt="Widoczek" />

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback, ChangeEvent, useMemo } from "react";
 import ImageContext from "./ImageContext";
 
 interface ListProps {
@@ -6,20 +6,29 @@ interface ListProps {
 }
 
 function List(props: ListProps) {
-  let { image, setImage } = useContext(ImageContext);
+  let { setImage } = useContext(ImageContext);
 
-  function handleChange(e: any) {
-    setImage((image = e.target.value));
-    console.log(image);
-  }
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      const image = String(e.target.value);
+      setImage(image);
+    },
+    [setImage]
+  );
 
   function MakeItem(img: string) {
-    return <option value={img}>{img.slice(4)}</option>;
+    return (
+      <option value={img} key={img}>
+        {img.slice(4)}
+      </option>
+    );
   }
+
+  let items = useMemo(() => props.images.map(MakeItem), [props.images]);
 
   return (
     <div className="List">
-      <select onChange={handleChange}>{props.images.map(MakeItem)}</select>
+      <select onChange={handleChange}>{items}</select>
     </div>
   );
 }
